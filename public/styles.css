@@ -13,6 +13,7 @@ body {
     border: 2px solid #333;
     background-color: #eee;
     padding: 5px;
+    align-items: flex-start;
   }
   
   .labels {
@@ -27,6 +28,7 @@ body {
     line-height: 30px;
     text-align: right;
     margin-bottom: 5px;
+    transform: translateY(50%);
   }
   
   .hole {
