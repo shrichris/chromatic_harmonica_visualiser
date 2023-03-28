@@ -1,5 +1,5 @@
   document.getElementById("scale").addEventListener("change", function (event) {
-    const scaleNotes = event.target.value.split(",");
+    const scaleNotes = addEquivalentNotes(event.target.value.split(",")); // Use the helper function here
     const holes = document.querySelectorAll(".hole");
   
     holes.forEach((hole) => {
@@ -16,4 +16,17 @@
       });
     });
   });
+
+  function addEquivalentNotes(notesArray) {
+    if (notesArray.includes('B#')) {
+      notesArray.push('C');
+    }
+  
+    if (notesArray.includes('E#')) {
+      notesArray.push('F');
+    }
+  
+    return notesArray;
+  }
+  
   
