@@ -7,27 +7,44 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-document.getElementById("scale").addEventListener("change", function (event) {
-    const scaleType = event.target.options[event.target.selectedIndex].dataset.type;
-    const scaleNotes = addEquivalentNotes(event.target.value.split(","));
-    populateChordSelector(scaleNotes, scaleType); // Pass the scale type here
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById("scale").addEventListener("change", function (event) {
+      const scaleType = event.target.options[event.target.selectedIndex].dataset.type;
+      const scaleNotes = addEquivalentNotes(event.target.value.split(","));
+      populateChordSelector(scaleNotes, scaleType); // Pass the scale type here
 
-    const holes = document.querySelectorAll(".hole");
-  
-    holes.forEach((hole) => {
-      const notes = hole.dataset.notes.split(",");
-       hole.classList.remove("highlighted");
-  
-      notes.forEach((note, index) => {
-        const noteElement = hole.querySelector(`.note:nth-child(${index + 1})`);
-        noteElement.classList.remove("highlighted");
-  
-        if (scaleNotes.includes(note)) {
-          noteElement.classList.add("highlighted");
-        }
+      const holes = document.querySelectorAll(".hole");
+    
+      holes.forEach((hole) => {
+        const notes = hole.dataset.notes.split(",");
+        hole.classList.remove("highlighted");
+    
+        notes.forEach((note, index) => {
+          const noteElement = hole.querySelector(`.note:nth-child(${index + 1})`);
+          noteElement.classList.remove("highlighted");
+    
+          if (scaleNotes.includes(note)) {
+            noteElement.classList.add("highlighted");
+          }
+        });
       });
     });
-  });
+
+    document.getElementById("chord").addEventListener("change", function (event) {
+      const chordIndex = event.target.value;
+      const scaleNotes = addEquivalentNotes(
+        document.getElementById("scale").value.split(",")
+      );
+    
+      const intervals = [0, 2, 4];
+      const chordNotes = intervals.map((interval) =>
+        scaleNotes[(parseInt(chordIndex) + interval) % scaleNotes.length]
+      );
+    
+      highlightChord(chordNotes);
+    });
+
+});
 
   function addEquivalentNotes(notesArray) {
     if (notesArray.includes('B#') && !notesArray.includes('C')) {
@@ -85,22 +102,6 @@ document.getElementById("scale").addEventListener("change", function (event) {
     chordSelector.disabled = false;
   }
   
-  
-  document.getElementById("chord").addEventListener("change", function (event) {
-    const chordIndex = event.target.value;
-    const scaleNotes = addEquivalentNotes(
-      document.getElementById("scale").value.split(",")
-    );
-  
-    const intervals = [0, 2, 4];
-    const chordNotes = intervals.map((interval) =>
-      scaleNotes[(parseInt(chordIndex) + interval) % scaleNotes.length]
-    );
-  
-    highlightChord(chordNotes);
-  });
-  
-
   function highlightChord(chordNotes) {
     const holes = document.querySelectorAll(".hole");
   
