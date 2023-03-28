@@ -18,15 +18,24 @@
   });
 
   function addEquivalentNotes(notesArray) {
-    if (notesArray.includes('B#')) {
+    if (notesArray.includes('B#') && !notesArray.includes('C')) {
       notesArray.push('C');
     }
   
-    if (notesArray.includes('E#')) {
+    if (notesArray.includes('C') && !notesArray.includes('B#')) {
+      notesArray.push('B#');
+    }
+  
+    if (notesArray.includes('E#') && !notesArray.includes('F')) {
       notesArray.push('F');
+    }
+  
+    if (notesArray.includes('F') && !notesArray.includes('E#')) {
+      notesArray.push('E#');
     }
   
     return notesArray;
   }
+  
   
   
