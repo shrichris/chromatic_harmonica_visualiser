@@ -51,13 +51,31 @@ body {
   }
   
   .note {
-    width: 30px;
+    width: 100%;
     height: 30px;
-    line-height: 30px;
+    font-weight: bold;
     text-align: center;
-    border: 1px solid #333;
+    line-height: 30px;
     margin-bottom: 5px;
+    border-radius: 4px;
   }
+  
+  .note.blow-slide {
+    background-color: #ff9999;
+  }
+  
+  .note.blow {
+    background-color: #99ccff;
+  }
+  
+  .note.draw {
+    background-color: #99ff99;
+  }
+  
+  .note.draw-slide {
+    background-color: #ffcc99;
+  }
+  
   
   .note:last-child {
     margin-bottom: 0;
