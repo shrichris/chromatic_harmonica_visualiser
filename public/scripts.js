@@ -1,5 +1,6 @@
   document.getElementById("scale").addEventListener("change", function (event) {
     const scaleNotes = addEquivalentNotes(event.target.value.split(",")); // Use the helper function here
+    populateChordSelector(scaleNotes); // Call the helper function here
     const holes = document.querySelectorAll(".hole");
   
     holes.forEach((hole) => {
@@ -37,5 +38,60 @@
     return notesArray;
   }
   
+  function populateChordSelector(scaleNotes) {
+    const chordSelector = document.getElementById("chord");
+    chordSelector.innerHTML = '<option value="">Select a chord</option>';
   
+    const chords = [
+      "Major",
+      "Minor",
+      "Minor",
+      "Major",
+      "Major",
+      "Minor",
+      "Diminished",
+    ];
   
+    scaleNotes.forEach((note, index) => {
+      const option = document.createElement("option");
+      option.value = note;
+      option.textContent = `${note} ${chords[index]}`;
+      chordSelector.appendChild(option);
+    });
+  
+    chordSelector.disabled = false;
+  }
+  
+  document.getElementById("chord").addEventListener("change", function (event) {
+    const chordRoot = event.target.value;
+    const scaleNotes = addEquivalentNotes(
+      document.getElementById("scale").value.split(",")
+    );
+  
+    const intervals = [0, 2, 4];
+    const chordNotes = intervals.map((interval) =>
+      scaleNotes[(scaleNotes.indexOf(chordRoot) + interval) % scaleNotes.length]
+    );
+  
+    highlightChord(chordNotes);
+  });
+
+  function highlightChord(chordNotes) {
+    const holes = document.querySelectorAll(".hole");
+  
+    holes.forEach((hole) => {
+      const notes = hole.dataset.notes.split(",");
+      hole.classList.remove("highlighted");
+  
+      notes.forEach((note, index) => {
+        const noteElement = hole.querySelector(`.note:nth-child(${index + 1})`);
+        noteElement.classList.remove("highlighted");
+  
+        if (chordNotes.includes(note)) {
+          noteElement.classList.add("highlighted");
+        }
+      });
+    });
+  }
+  
+
