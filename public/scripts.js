@@ -95,6 +95,10 @@ document.getElementById("scale").addEventListener("change", function (event) {
   function highlightChord(chordNotes) {
     const holes = document.querySelectorAll(".hole");
   
+    const highlightedNotes = chordNotes.flatMap((note) => {
+      return addEquivalentNotes([note]);
+    });
+  
     holes.forEach((hole) => {
       const notes = hole.dataset.notes.split(",");
       hole.classList.remove("highlighted");
@@ -103,7 +107,7 @@ document.getElementById("scale").addEventListener("change", function (event) {
         const noteElement = hole.querySelector(`.note:nth-child(${index + 1})`);
         noteElement.classList.remove("highlighted");
   
-        if (chordNotes.includes(note)) {
+        if (highlightedNotes.includes(note)) {
           noteElement.classList.add("highlighted");
         }
       });
