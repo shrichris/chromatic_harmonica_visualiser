@@ -103,3 +103,6 @@ body {
     align-items: center;
   }
   
+  select#scaleSelector {
+    font-size: 18px;
+  }
