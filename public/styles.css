@@ -15,6 +15,20 @@ body {
     padding: 5px;
   }
   
+  .labels {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-right: 5px;
+  }
+  
+  .label {
+    height: 30px;
+    line-height: 30px;
+    text-align: right;
+    margin-bottom: 5px;
+  }
+  
   .hole {
     display: flex;
     flex-direction: column;
