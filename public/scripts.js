@@ -1,3 +1,12 @@
+document.addEventListener('DOMContentLoaded', () => {
+  const hamburger = document.querySelector('.hamburger');
+  const navLinks = document.querySelector('.nav-links');
+
+  hamburger.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+  });
+});
+
 document.getElementById("scale").addEventListener("change", function (event) {
     const scaleType = event.target.options[event.target.selectedIndex].dataset.type;
     const scaleNotes = addEquivalentNotes(event.target.value.split(","));
