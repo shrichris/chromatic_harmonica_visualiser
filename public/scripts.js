@@ -1,6 +1,8 @@
-  document.getElementById("scale").addEventListener("change", function (event) {
-    const scaleNotes = addEquivalentNotes(event.target.value.split(",")); // Use the helper function here
-    populateChordSelector(scaleNotes); // Call the helper function here
+document.getElementById("scale").addEventListener("change", function (event) {
+    const scaleType = event.target.options[event.target.selectedIndex].dataset.type;
+    const scaleNotes = addEquivalentNotes(event.target.value.split(","));
+    populateChordSelector(scaleNotes, scaleType); // Pass the scale type here
+
     const holes = document.querySelectorAll(".hole");
   
     holes.forEach((hole) => {
@@ -38,11 +40,11 @@
     return notesArray;
   }
   
-  function populateChordSelector(scaleNotes) {
+  function populateChordSelector(scaleNotes, scaleType) {
     const chordSelector = document.getElementById("chord");
     chordSelector.innerHTML = '<option value="">Select a chord</option>';
   
-    const chords = [
+    const majorChords = [
       "Major",
       "Minor",
       "Minor",
@@ -52,9 +54,21 @@
       "Diminished",
     ];
   
+    const minorChords = [
+      "Minor",
+      "Diminished",
+      "Major",
+      "Minor",
+      "Minor",
+      "Major",
+      "Major",
+    ];
+  
+    const chords = scaleType === "major" ? majorChords : minorChords;
+  
     scaleNotes.forEach((note, index) => {
       const option = document.createElement("option");
-      option.value = note;
+      option.value = index; // Store the index instead of the note
       option.textContent = `${note} ${chords[index]}`;
       chordSelector.appendChild(option);
     });
@@ -62,19 +76,21 @@
     chordSelector.disabled = false;
   }
   
+  
   document.getElementById("chord").addEventListener("change", function (event) {
-    const chordRoot = event.target.value;
+    const chordIndex = event.target.value;
     const scaleNotes = addEquivalentNotes(
       document.getElementById("scale").value.split(",")
     );
   
     const intervals = [0, 2, 4];
     const chordNotes = intervals.map((interval) =>
-      scaleNotes[(scaleNotes.indexOf(chordRoot) + interval) % scaleNotes.length]
+      scaleNotes[(parseInt(chordIndex) + interval) % scaleNotes.length]
     );
   
     highlightChord(chordNotes);
   });
+  
 
   function highlightChord(chordNotes) {
     const holes = document.querySelectorAll(".hole");
