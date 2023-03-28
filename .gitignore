@@ -102,3 +102,19 @@ dist
 
 # TernJS port file
 .tern-port
+
+
+# Firebase Files to ignore
+
+# Firebase generated files
+.firebase/
+firebase-debug.log
+firebase.json
+
+# Node.js dependencies
+node_modules/
+package-lock.json
+
+# Other
+.DS_Store
+Thumbs.db
