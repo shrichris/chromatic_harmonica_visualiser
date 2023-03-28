@@ -38,6 +38,13 @@ body {
     border-right: 1px solid #999;
     padding: 5px;
   }
+
+  .hole-label {
+    margin-top: 5px;
+    font-weight: bold;
+    font-size: 14px;
+  }
+  
   
   .hole:last-child {
     border-right: none;
